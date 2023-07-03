@@ -1,44 +1,44 @@
-#define buzzerPin 26 //OUTPUTA:26 OUTPUTB:13
-#define BEAT 500 //音を鳴らす時間
-
+#define spPIN 26
+//音を鳴らす時間
+#define BEAT 500
 //音階名と周波数の対応
-#define DO 261.6
-#define _DO 277.18
-#define RE 293.665
-#define _RE 311.127
-#define MI 329.63
-#define FA 349.228
-#define _FA 369.994
-#define SO 391.995
-#define _SO 415.305
-#define RA 440
-#define _RA 466.164
-#define SI 493.883
-#define octDO 523.251
+#define C4 261.6
+#define C_4 277.18
+#define D4 293.665
+#define D_4 311.127
+#define E4 329.63
+#define F4 349.228
+#define F_4 369.994
+#define G4 391.995
+#define G_4 415.305
+#define A4 440
+#define A_4 466.164
+#define B4 493.883
+#define C5 523.251
 
 void playmusic(){
-    ledcWriteTone(1,DO);
+    ledcWriteTone(1,C4);
     delay(BEAT);
-    ledcWriteTone(1,RE);
+    ledcWriteTone(1,D4);
     delay(BEAT);
-    ledcWriteTone(1,MI);
+    ledcWriteTone(1,E4);
     delay(BEAT);
-    ledcWriteTone(1,FA);
+    ledcWriteTone(1,F4);
     delay(BEAT);
-    ledcWriteTone(1,SO);
+    ledcWriteTone(1,G4);
     delay(BEAT);
-    ledcWriteTone(1,RA);
+    ledcWriteTone(1,A4);
     delay(BEAT);
-    ledcWriteTone(1,SI);
+    ledcWriteTone(1,B4);
     delay(BEAT);
-    ledcWriteTone(1,octDO);
+    ledcWriteTone(1,C5);
     delay(BEAT);
     ledcWriteTone(1,0);
     delay(BEAT);
 }
 void setup() {
   ledcSetup(1,12000, 8);
-  ledcAttachPin(buzzerPin,1);
+  ledcAttachPin(spPIN,1);
 }
 
 void loop() {
