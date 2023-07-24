@@ -1,26 +1,28 @@
-#define swPin 33
+//Connect PushSwitch to IN connector
+//Connect SingleLED to OUT connector
+
+#define ledPin 25
+#define swPin 32
 #define on HIGH
 #define off LOW
 
 int swState = 0;
-int swFlag = 0;
 
 void setup() {
   Serial.begin(115200);
-  pinMode(swPin, INPUT_PULLUP);
+  pinMode(ledPin, OUTPUT);
+  pinMode(swPin, INPUT);
 }
 
 void loop() {
   swState = digitalRead(swPin);
   if (swState == on) {
-    swFlag = !swFlag;
-  }
-
-  if(swFlag == 1){
+    digitalWrite(ledPin, on); 
     Serial.println("押されています");
-    delay(1000);
+    delay(200);
   } else {
+    digitalWrite(ledPin, off);
     Serial.println("押されていません");
-    delay(1000);
+    delay(200);
   }
 }

@@ -1,3 +1,5 @@
+//Connect PushSwitch to IN connector
+
 #define swPin 32
 #define on HIGH
 #define off LOW
@@ -12,10 +14,10 @@ void setup() {
 void loop() {
   swState = digitalRead(swPin);
   if (swState == on) {
-    Serial.println("押されています");
-    delay(1000);
+    Serial.println("Pushed");
+    delay(500);
   } else {
-    Serial.println("押されていません");
-    delay(1000);
+    Serial.println("Not Pushed");
+    delay(500);
   }
 }

@@ -1,3 +1,5 @@
+//Connect SingleLED to OUT connector
+
 #define ledPin 25
 #define on HIGH
 #define off LOW
