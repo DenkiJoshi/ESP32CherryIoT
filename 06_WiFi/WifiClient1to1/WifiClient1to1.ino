@@ -1,17 +1,17 @@
 //https://tom2rd.sakura.ne.jp/wp/2019/09/05/post-9861/
 
-#define press_pin 32
+#define cdsPin 33 //INPUTA:33 INPUTB:32
 float ain,vo,rf;
 
 /*クライアント側*/
 #include<WiFi.h>
-const char *ssid="ESP32-WiFi-4"; //サーバーのSSID
+const char *ssid="ESP32-WiFi-5"; //サーバーのSSID
 const char *pass="esp32wifi"; //サーバーのパスワード
 static WiFiClient client; //WiFiClient型でclientと宣言
 
 void setup() {
   Serial.begin(115200);
-  pinMode(press_pin, INPUT);
+  pinMode(cdsPin, INPUT);
   WiFi.begin(ssid,pass);  //サーバーに接続
   Serial.printf("\n");
   while(WiFi.status()!=WL_CONNECTED)
@@ -21,22 +21,27 @@ void setup() {
   }
   Serial.printf("\n");
   Serial.println("WiFi Connected");
-  IPAddress ip(192,168,0,9);  //サーバーのIPアドレス
+  IPAddress ip(192,168,0,5);  //サーバーのIPアドレス
   client.connect(ip,80);  //IPアドレスとポート番号を指定して接続
 }
 
 void loop()
 {
-  ain = analogRead(press_pin);
-  vo = ain * 3.3 / 4096;
-  rf = 10000 * vo / (3.3 - vo);
-  Serial.print( rf );
-  Serial.println( "g" );
-  delay(200);
+  //AD値を取得
+  float cds_ad = analogRead(cdsPin);
+
+  //AD値を電圧値に変換
+  float cds_v = cds_ad * 3.3 / 4096;
+
+  //電圧値より、Lux計算
+  float lux = 10000 * cds_v / ( 3.3 - cds_v ) /1000;
+
+  Serial.print(lux);
+  Serial.println(" Lux ");
 
   if(client.connected()==true)
   {
-    if(rf > 5000){
+    if(lux > 25){
       client.write(1);
       delay(100);
     }

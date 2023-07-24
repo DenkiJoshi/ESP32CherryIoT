@@ -1,13 +1,7 @@
 //https://tom2rd.sakura.ne.jp/wp/2019/09/05/post-9861/
 /* server側                            */
 
-#include "SoftwareSerial.h" //EspSoftwareSerial by Peter Lerup
-#include "DFRobotDFPlayerMini.h"
-
 uint8_t buf[256];
-
-SoftwareSerial mySoftwareSerial;
-DFRobotDFPlayerMini myDFPlayer;
 
 #include<WiFi.h>
 const char *ssid="ESP32-WiFi-4"; //SSID
@@ -19,9 +13,7 @@ WiFiServer server(80);
 void setup()
 {
   Serial.begin(115200);
-  mySoftwareSerial.begin(9600, SWSERIAL_8N1, 22, 21, false, sizeof(buf)); //Speed, ?, RX(26), TX(27), ?, buffer
-  myDFPlayer.begin(mySoftwareSerial);
-  myDFPlayer.volume(10);  //Set volume value. From 0 to 30
+  pinMode(26, OUTPUT);
   
   WiFi.softAP(ssid,pass);  //SSIDとパスの設定
   delay(100); //接続失敗防止
@@ -51,7 +43,11 @@ void loop()
         value=client.read();
         Serial.println(value);
         if( value == 1 ) {
-          myDFPlayer.play(random(1, 5));
+          digitalWrite(26, LOW);
+          delay(10);
+        }
+        else {
+          digitalWrite(26, HIGH);
           delay(10);
         }
         delay(100);
