@@ -8,8 +8,7 @@ const char* ssid = "AP01-01";
 const char* password =  "1qaz2wsx";
  
 const String endpoint = "http://api.openweathermap.org/data/2.5/weather?q=matsue,jp&APPID=";
-//const String key = "YOUR API";
-const String key = "17f83f2e9a9be2915f1204dd14cfac53";
+const String key = "YOUR API";
  
 void setup() {
  
