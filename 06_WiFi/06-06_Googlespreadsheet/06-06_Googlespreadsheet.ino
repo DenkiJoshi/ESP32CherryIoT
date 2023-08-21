@@ -5,8 +5,8 @@
 #include <WiFiClientSecure.h>
 
 // 接続先のSSIDとパスワード
-const char* ssid = "xxxxx"; //無線ルーターのssidを入力
-const char* password = "xxxxx"; //無線ルーターのパスワードを入力
+const char* ssid = "AP01-01"; //無線ルーターのssidを入力
+const char* password = "1qaz2wsx"; //無線ルーターのパスワードを入力
 
 
 void setup() {
@@ -51,7 +51,7 @@ void sendData(){
   WiFiClientSecure sslclient;
 
   const char* server = "script.google.com";
-  String url = "https://script.google.com/macros/s/xxxxxxxxxxxxxxxxxxxxxx/exec";  //googlescript web appのurlを入力
+  String url = "https://script.google.com/macros/s/AKfycbxHtc24-Gw6xo74FObEigp-GW7QhAfn3oweqOzSt9gwEJkpJw7ui7k6ZyHiyCYbBImLRg/exec";  //googlescript web appのurlを入力
 
   //測定値を準備
   float sensor_data1= 12.34; //仮の測定値
