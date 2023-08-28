@@ -11,7 +11,7 @@
 
 #include <WiFi.h>
 #include <WiFiClient.h>
-#include <BlynkSimpleEsp32.h>
+#include <BlynkSimpleEsp32.h> //Blynk by Volodymyr ver.1.2.0
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
