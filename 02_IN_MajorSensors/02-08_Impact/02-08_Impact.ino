@@ -1,11 +1,12 @@
-#define imp_pin 33 //INA:33 INB:15
-#define led_pin 13 //OUTA:26 OUTB:13
+//Connect vibration sensor to IN connector
+//Slide switch on the ESP32 dongle:3.3V.(Also 5.0V OK)
+
+#define InputPin 32
 int val;
 
 void setup() {
   Serial.begin(115200);
-  pinMode(imp_pin,INPUT);
-  pinMode(led_pin,OUTPUT);
+  pinMode(InputPin,INPUT);
 }
 
 int SensAve(){
@@ -13,7 +14,7 @@ int SensAve(){
   int sval=0;
   int ave=0;
   for (i = 0; i < 10000; i++){
-    sval = sval + digitalRead(imp_pin);  // アナログ入力ピンのセンサから
+    sval = sval + digitalRead(InputPin);
   }
   ave = sval / 100;
   return ave;
@@ -22,11 +23,4 @@ int SensAve(){
 void loop() {
   val = SensAve();
   Serial.println(val);
-  if(val>0 && val<90) //val<xxのxxが感度。0～100
-  {
-    digitalWrite(led_pin,LOW);
-  }
-  else{
-    digitalWrite(led_pin,HIGH);
-  }
 }
