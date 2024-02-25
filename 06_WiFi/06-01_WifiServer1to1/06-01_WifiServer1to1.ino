@@ -4,16 +4,16 @@
 uint8_t buf[256];
 
 #include<WiFi.h>
-const char *ssid="ESP32-WiFi-4"; //SSID
+const char *ssid="ESP32-WiFi-5"; //SSID
 const char *pass="esp32wifi"; //パスワード
-const IPAddress ip(192,168,0,9);  //サーバーのIPアドレス
+const IPAddress ip(192,168,0,5);  //サーバーのIPアドレス
 const IPAddress subnet(255,255,255,0);  //サブネットマスク
 WiFiServer server(80);
 
 void setup()
 {
   Serial.begin(115200);
-  pinMode(26, OUTPUT);
+  pinMode(25, OUTPUT);
   
   WiFi.softAP(ssid,pass);  //SSIDとパスの設定
   delay(100); //接続失敗防止
@@ -43,11 +43,11 @@ void loop()
         value=client.read();
         Serial.println(value);
         if( value == 1 ) {
-          digitalWrite(26, LOW);
+          digitalWrite(25, LOW);
           delay(10);
         }
         else {
-          digitalWrite(26, HIGH);
+          digitalWrite(25, HIGH);
           delay(10);
         }
         delay(100);

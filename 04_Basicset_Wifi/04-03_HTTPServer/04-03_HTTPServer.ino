@@ -1,9 +1,12 @@
 //https://www.mgo-tec.com/blog-entry-esp-wroom-32-esp32-wifi-smartphone-led-switch.html/4
+//Server side. Connect LED to "OUT" connector.
+//Slide switch to 3.3V.
 
 #include <WiFi.h>
+#define ledPin 25
 
-const char* ssid = "AP01-01";
-const char* password = "1qaz2wsx";
+const char* ssid = "xxxxx";
+const char* password = "xxxxx";
  
 WiFiServer server(80);
  
@@ -11,11 +14,10 @@ void setup()
 {
     delay(1000);
     Serial.begin(115200);
-    pinMode(25, OUTPUT);      // set the LED pin mode
+    pinMode(ledPin, OUTPUT);
  
     delay(10);
  
-    Serial.println();
     Serial.println();
     Serial.print("Connecting to ");
     Serial.println(ssid);
@@ -37,7 +39,7 @@ void setup()
 }
  
 void loop(){
- WiFiClient client = server.available();
+ WiFiClient client = server.available(); //Get information about connected clients.
  
   if (client) {
     Serial.println("new client");
@@ -78,10 +80,10 @@ void loop(){
         }
  
         if (currentLine.endsWith("GET /?0=ON")) {
-          digitalWrite(25, HIGH);
+          digitalWrite(ledPin, HIGH);
         }
         if (currentLine.endsWith("GET /?1=OFF")) {
-          digitalWrite(25, LOW);
+          digitalWrite(ledPin, LOW);
         }
       }
     }

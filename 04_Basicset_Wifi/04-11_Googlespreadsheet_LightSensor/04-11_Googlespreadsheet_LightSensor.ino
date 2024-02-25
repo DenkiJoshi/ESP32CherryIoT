@@ -1,15 +1,18 @@
 //https://www.haruirosoleil.com/entry/2020/02/02/101937
-//→【arduino_IDE】googlesheetに書き込んでみた
 
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 
 // 接続先のSSIDとパスワード
-const char* ssid = "AP01-01"; //無線ルーターのssidを入力
-const char* password = "1qaz2wsx"; //無線ルーターのパスワードを入力
+const char* ssid = "xxxxxx"; //無線ルーターのssidを入力
+const char* password = "xxxxxx"; //無線ルーターのパスワードを入力
+
+#define cdsPin 33 //INPUTA:33 INPUTB:32
+
 
 void setup() {
   Serial.begin(115200);
+  pinMode(cdsPin, INPUT);
 }
 
 
@@ -39,7 +42,6 @@ void connectWiFi(){
   //IPアドレスの表示
   Serial.print("IPアドレス:");
   Serial.println(WiFi.localIP());
-
 }
 
  
@@ -50,34 +52,37 @@ void sendData(){
   WiFiClientSecure sslclient;
 
   const char* server = "script.google.com";
-  String url = "https://script.google.com/macros/s/AKfycbwatdrSt50TSvsoO5S1-7qFu4zQAKA1sp6lAMMN4QQiJ4WWjKFUgz1TY-5Fmi3BNBpd/exec";  //googlescript web appのurlを入力
+  String url = "https://script.google.com/macros/s/xxxxxxxxxxxxxx/exec";  //googlescript web appのurlを入力
 
   //測定値を準備
-  float sensor_data1= 12.34; //仮の測定値
-  float sensor_data2= 56.78; //仮の測定値
-  float sensor_data3= 91.23; //仮の測定値
+  float cds_ad = analogRead(cdsPin);
+
+  float cds_v = cds_ad * 3.3 /4096;
+
+  float lux = 10000 * cds_v / (3.3 - cds_v ) /1000;
+
+  Serial.print(lux);
+  Serial.println(" Lux ");
+  
+  float sensor_data1= lux; //仮の測定値
+  
 
   //wifiに接続
   connectWiFi();
 
   //測定値の表示
   Serial.println(sensor_data1);
-  Serial.println(sensor_data2);
-  Serial.println(sensor_data3);
+  
 
   //urlの末尾に測定値を加筆
   url += "?";
   url += "&1_cell=";
   url += sensor_data1;
-  url += "&2_cell=";
-  url += sensor_data2;
-  url += "&3_cell=";
-  url += sensor_data3;
+ 
 
   // サーバーにアクセス
   Serial.println("サーバーに接続中...");
-  sslclient.setInsecure();//skip verification
-  
+
   //データの送信
   if (!sslclient.connect(server, 443)) {
     Serial.println("接続に失敗しました");

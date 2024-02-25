@@ -1,6 +1,6 @@
 //https://tom2rd.sakura.ne.jp/wp/2019/09/05/post-9861/
 
-#define cdsPin 33 //INPUTA:33 INPUTB:32
+#define cdsPin 32
 float ain,vo,rf;
 
 /*クライアント側*/

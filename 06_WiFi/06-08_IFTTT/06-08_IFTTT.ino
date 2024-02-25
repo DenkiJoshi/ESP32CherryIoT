@@ -7,7 +7,7 @@ const char* ssid = "xxxxx";
 const char* password =  "xxxxx";
  
 const String endpoint = "https://maker.ifttt.com/trigger/";//定型url
-const String eventName = "SchooMyIoT";//IFTTTのEvent Name
+const String eventName = "ESP32Dongle";//IFTTTのEvent Name
 const String conn = "/with/key/";//定型url
 const String Id = "xxxxxxxxxxxxxxx";//自分のIFTTTのYour Key
 const String value ="?value1=aaa&value2=bbbb&value3=ccccc";//値 value1=xxxx value2=xxxxx value3=xxxxx

@@ -26,7 +26,8 @@ void setup()
 {
   // Debug console
   Serial.begin(115200);
-  pinMode(ledPin, OUTPUT);
+  ledcSetup(0, 12800, 8);
+  ledcAttachPin(ledPin, 0);
   Blynk.begin(auth, ssid, pass);
 }
 
@@ -37,7 +38,7 @@ void loop()
 
 BLYNK_WRITE(V0){ //Blynk Virtual Pin
   int ledStatus = param[0].asInt();
-  digitalWrite(ledPin, ledStatus);
+  ledcWrite(0, ledStatus);
   Serial.println("---------------");
   Serial.printf("LED Status = %d\r\n", ledStatus);
 }
