@@ -4,9 +4,9 @@
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 
-const char* ssid = "aterm-02f2a5-g";
-const char* password = "068602ce2f2bd";
-String openaiKey = "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";
+const char* ssid = "xxxxx";
+const char* password = "xxxxx";
+String openaiKey = "xxxxxxxxxxxxxxxxxx";
 
 //ChatGPT
 String role = "You are a helpful assistant.";
@@ -22,7 +22,6 @@ void setup() {
   connectWiFi();
   Serial.println(openAI_chat("私は山梨県に住んでいます。"));
   Serial.println(openAI_chat("私の地域で有名なものを教えてください。"));
-  Serial.println(openAI_image("私の地域のイメージ画像を生成してください。"));  
 }
 
 void loop() {
@@ -119,57 +118,4 @@ String openAI_chat(String message) {
 
 void openAI_chat_reset() {
   historical_messages = system_content;
-}
-
-String openAI_image(String message) { 
-  WiFiClientSecure client_tcp;
-  client_tcp.setInsecure();   //run version 1.0.5 or above
-
-  String request = "{\"prompt\":\""+ message+"\", \"size\":\""+imageSize+"\", \"n\":1}";
-  if (client_tcp.connect("api.openai.com", 443)) {
-    client_tcp.println("POST /v1/images/generations HTTP/1.1");
-    client_tcp.println("Connection: close"); 
-    client_tcp.println("Host: api.openai.com");
-    client_tcp.println("Authorization: Bearer " + openaiKey);
-    client_tcp.println("Content-Type: application/json; charset=utf-8");
-    client_tcp.println("Content-Length: " + String(request.length()));
-    client_tcp.println();
-    for (int i = 0; i < request.length(); i += 1024) {
-      client_tcp.print(request.substring(i, i+1024));
-    }
-    
-    String getResponse="",Feedback="";
-    boolean state = false;
-    int waitTime = 20000;   // timeout 20 seconds
-    long startTime = millis();
-    while ((startTime + waitTime) > millis()) {
-      Serial.print(".");
-      delay(100);      
-      while (client_tcp.available()) {
-          char c = client_tcp.read();
-          if (String(c)=="\""&&state==true)
-            break;           
-          if (state==true)
-            getResponse += String(c);
-          if (c == '\n')
-            Feedback = "";
-          else if (c != '\r')
-            Feedback += String(c);
-          if (Feedback.indexOf("\"url\": \"")!=-1)
-            state=true;             
-          startTime = millis();
-       }
-       if (getResponse.length()>0) {
-          client_tcp.stop();
-          Serial.println("");
-          return getResponse;
-       }
-    }
-    
-    client_tcp.stop();
-    Serial.println(Feedback);
-    return "error";
-  }
-  else
-    return "Connection failed";  
 }
