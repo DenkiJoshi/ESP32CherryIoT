@@ -1,4 +1,5 @@
-const int ledPin = 0; //Connect LED to GPIO0
+const int ledPin = 0;
+//0:ConnectorA 4:ConnectorB 10:Builtin
 
 void setup() {
   pinMode(ledPin, OUTPUT);
@@ -9,7 +10,7 @@ void loop() {
    analogWrite(ledPin, i);
    delay(10); // Change speed
   }
-  for (i=255; i>=0; i--){ //Decrease brightness
+  for (int i=255; i>=0; i--){ //Decrease brightness
    analogWrite(ledPin, i);
    delay(10); // Change speed
   }

@@ -1,4 +1,5 @@
-const int ledPin = 0; //Connect LED to GPIO0
+const int ledPin = 0;
+//0:ConnectorA 4:ConnectorB 10:Builtin
 
 void setup() {
   pinMode(ledPin, OUTPUT);

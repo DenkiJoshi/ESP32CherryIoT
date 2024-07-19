@@ -1,5 +1,5 @@
-const int swPin = 4; //Connect Switch to GPIO4
-const int ledPin = 0; //Connect LED to GPIO0
+const int swPin = 0; //ConnectorA
+const int ledPin = 4; //ConnectorB
 
 bool swState = 0;
 
@@ -13,13 +13,13 @@ void loop() {
 
   swState = digitalRead(swPin);
   
-  if (swState == LOW) {
+  if (swState == HIGH) {
     digitalWrite(ledPin, HIGH); //ON
     Serial.println("Pushed");
-    delay(200);
+    delay(300);
   } else {
     digitalWrite(ledPin, LOW); //OFF
     Serial.println("Not Pushed");
-    delay(200);
+    delay(300);
   }
 }
