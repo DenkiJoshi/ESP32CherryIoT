@@ -1,5 +1,5 @@
-const int ledPin = 0;
-//0:ConnectorA 4:ConnectorB 10:Builtin
+const int ledPin = 4;
+//4:ConnectorA 9:ConnectorB 10:Builtin
 
 void setup() {
   pinMode(ledPin, OUTPUT);

@@ -1,7 +1,5 @@
-//Connect DCMotor(Mini Fan) to "OUT" connector.
-//Slide switch to 5.0V.
-
-#define motorPin 25
+const int motorPin = 4;
+//4:ConnectorA 9:ConnectorB
 
 void setup() {
   pinMode(motorPin, OUTPUT);

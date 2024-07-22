@@ -1,7 +1,5 @@
-//Connect Vibration to "OUT" connector.
-//Slide switch to 3.3V.
-
-#define vibPin 25
+const int vibPin = 4;
+//4:ConnectorA 9:ConnectorB
 
 void setup() {
   pinMode(vibPin, OUTPUT);

@@ -1,8 +1,7 @@
-const int swPin = 0;
-//0:ConnectorA 4:ConnectorB
+const int swPin = 4;
+//4:ConnectorA 9:ConnectorB
 
 bool swState = 0;
-bool swFlag = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -10,14 +9,12 @@ void setup() {
 }
 
 void loop() {
-
-  swState = digitalRead(swPin);
   
-  if (swState == HIGH) {
-    swFlag = !swFlag;
+  if (digitalRead(swPin) == HIGH) {
+    swState = !swState;
   }
 
-  if(swFlag == 1){
+  if(swState == 1){
     //Look at the serial monitor
     Serial.println("ON");
     delay(300);
@@ -25,4 +22,5 @@ void loop() {
     Serial.println("OFF");
     delay(300);
   }
+
 }

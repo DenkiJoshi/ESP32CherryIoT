@@ -1,7 +1,5 @@
-const int swPin = 0;
-//0:ConnectorA 4:ConnectorB
-
-bool swState = 0;
+const int swPin = 4;
+//4:ConnectorA 9:ConnectorB
 
 void setup() {
   Serial.begin(115200);
@@ -9,10 +7,7 @@ void setup() {
 }
 
 void loop() {
-
-  swState = digitalRead(swPin);
-  
-  if (swState == HIGH) {
+  if (digitalRead(swPin) == HIGH) {
     //Look at the serial monitor
     Serial.println("Pushed"); 
     delay(500);
@@ -20,5 +15,4 @@ void loop() {
     Serial.println("Not Pushed");
     delay(500);
   }
-  
 }

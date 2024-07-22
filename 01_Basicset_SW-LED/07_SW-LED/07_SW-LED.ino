@@ -1,7 +1,5 @@
-const int swPin = 0; //ConnectorA
-const int ledPin = 4; //ConnectorB
-
-bool swState = 0;
+const int swPin = 4; //4:ConnectorA 9:ConnectorB
+const int ledPin = 9; //4:ConnectorA 9:ConnectorB 10:Builtin
 
 void setup() {
   Serial.begin(115200);
@@ -9,11 +7,8 @@ void setup() {
   pinMode(ledPin, OUTPUT);
 }
 
-void loop() {
-
-  swState = digitalRead(swPin);
-  
-  if (swState == HIGH) {
+void loop() { 
+  if (digitalRead(swPin) == HIGH) {
     digitalWrite(ledPin, HIGH); //ON
     Serial.println("Pushed");
     delay(300);

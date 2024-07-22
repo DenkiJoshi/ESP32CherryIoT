@@ -1,8 +1,5 @@
-//Connect Speaker to "OUT" connector.
-//Slide switch to 3.3V.
-//Turn the resistor on the device 90 degrees counterclockwise
-
-#define spPIN 25
+const int spkrPin = 4;
+//4:ConnectorA 9:ConnectorB
 
 #define BEAT 230
 #define DO 261.6
@@ -106,7 +103,7 @@ void fryer(){
 
 void setup() {
   ledcSetup(0, 12000, 8); //PWM outputs setting.(channel, frequency, duty ratio)
-  ledcAttachPin(spPin, 0); //Pin setting(pin num, channel)
+  ledcAttachPin(spkrPin, 0); //Pin setting(pin num, channel)
 }
 
 void loop() {
