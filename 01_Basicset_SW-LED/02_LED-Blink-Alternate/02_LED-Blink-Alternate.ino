@@ -1,6 +1,6 @@
-const int ledPin1 = 4;
-const int ledPin2 = 10;
-//4:ConnectorA 9:ConnectorB 10:Builtin
+const int ledPin1 = 3; //3:ConnectorA 5:ConnectorB 10:Builtin
+const int ledPin2 = 10; //3:ConnectorA 5:ConnectorB 10:Builtin
+
 
 void setup() {
   pinMode(ledPin1, OUTPUT);
@@ -10,8 +10,8 @@ void setup() {
 void loop() {
   digitalWrite(ledPin1, HIGH); //ON
   digitalWrite(ledPin2, LOW); //OFF
-  delay(500); //0.5msec
+  delay(500); //0.5sec
   digitalWrite(ledPin1, LOW); //OFF
   digitalWrite(ledPin2, HIGH); //ON
-  delay(500); //0.5msec
+  delay(500); //0.5sec
 }

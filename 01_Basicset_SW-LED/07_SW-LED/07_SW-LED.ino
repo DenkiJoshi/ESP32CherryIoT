@@ -1,5 +1,5 @@
-const int swPin = 4; //4:ConnectorA 9:ConnectorB
-const int ledPin = 9; //4:ConnectorA 9:ConnectorB 10:Builtin
+const int swPin = 3; //3:ConnectorA 5:ConnectorB
+const int ledPin = 5; //3:ConnectorA 5:ConnectorB 10:Builtin
 
 void setup() {
   Serial.begin(115200);

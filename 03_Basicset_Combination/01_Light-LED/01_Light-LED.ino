@@ -1,8 +1,10 @@
 const int litsnsrPin = 3; //3:ConnectorA 5:ConnectorB
+const int ledPin = 5; //3:ConnectorA 5:ConnectorB 10:Builtin
 
 void setup() {
   Serial.begin(115200);
   pinMode(litsnsrPin, INPUT);
+  pinMode(ledPin, OUTPUT);
 }
 
 void loop() {
@@ -16,9 +18,11 @@ void loop() {
   
   // Change the threshold to suit your environment
   if (lux > 20) { 
+    digitalWrite(ledPin, LOW); //OFF
     Serial.println("Bright");
     delay(500);
   } else {
+    digitalWrite(ledPin, HIGH); //ON
     Serial.println("Dark");
     delay(500);
   }

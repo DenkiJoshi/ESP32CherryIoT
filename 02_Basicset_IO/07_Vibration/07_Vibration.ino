@@ -1,5 +1,4 @@
-const int vibPin = 4;
-//4:ConnectorA 9:ConnectorB
+const int vibPin = 3; //3:ConnectorA 5:ConnectorB
 
 void setup() {
   pinMode(vibPin, OUTPUT);

@@ -5,7 +5,7 @@ DHT20 DHT;
 
 void setup() {
   Serial.begin(115200);
-  Wire.begin(); //Uses I2C, connectorB only
+  Wire.begin(1, 3); //1,3:ConnectorA 4,5:ConnectorB
 }
 
 void loop() {
@@ -18,4 +18,3 @@ void loop() {
   Serial.println(String(Humidity) + "％");
   delay(500);
 }
-

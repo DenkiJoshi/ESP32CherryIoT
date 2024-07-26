@@ -1,7 +1,5 @@
-const int spkrPin = 32;
-//4:ConnectorA 9:ConnectorB
+const int spkrPin = 3; //3:ConnectorA 5:ConnectorB
 
-#define BEAT 230
 #define DO 261.6
 #define _DO 277.18
 #define RE 293.665
@@ -16,23 +14,23 @@ const int spkrPin = 32;
 #define TI 493.883
 #define octDO 523.251
 
-void doremi(){
-    ledcWriteTone(4, DO); //PWM output(channel, frequency)
-    delay(BEAT * 2);
-    ledcWriteTone(4, RE);
-    delay(BEAT * 2);
-    ledcWriteTone(4, MI);
-    delay(BEAT * 2);
-    ledcWriteTone(4, 0); // no sound
-    delay(BEAT);
+void playmusic(){
+  ledcWriteTone(spkrPin, DO);
+  delay(250);
+  ledcWriteTone(spkrPin, RE);
+  delay(250);
+  ledcWriteTone(spkrPin, MI);
+  delay(250);
+  ledcWriteTone(spkrPin, 0); // no sound
+  delay(250);
 }
 
 void setup() {
-  ledcAttachChannel(spkrPin, 100, 14, 0); //Pin setting(pin num, frequency, resolution, channel)
+  pinMode(spkrPin, OUTPUT);
+  ledcAttach(spkrPin, 12000, 8); //Pin setting(Pin num, Max frequency, Resolution)
 }
 
 void loop() {
-  doremi();
-  ledcAttach(spkrPin,NOTE_A,7);
-  delay(500);
+  playmusic();
+  delay(3000);
 }

@@ -1,5 +1,4 @@
-const int ruptPin = 9;
-//4:ConnectorA 9:ConnectorB
+const int ruptPin = 3; //3:ConnectorA 5:ConnectorB
 
 void setup(){
   pinMode(ruptPin, INPUT);

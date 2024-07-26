@@ -1,5 +1,4 @@
-const int motorPin = 4;
-//4:ConnectorA 9:ConnectorB
+const int motorPin = 3; //3:ConnectorA 5:ConnectorB
 
 void setup() {
   pinMode(motorPin, OUTPUT);

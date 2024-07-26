@@ -1,5 +1,4 @@
-const int spkrPin = 4;
-//4:ConnectorA 9:ConnectorB
+const int spkrPin = 3; //3:ConnectorA 5:ConnectorB
 
 #define BEAT 230
 #define DO 261.6
@@ -17,93 +16,93 @@ const int spkrPin = 4;
 #define octDO 523.251
 
 void doremi(){
-    ledcWriteTone(0, DO); //PWM output(channel, frequency)
-    delay(BEAT * 2);
-    ledcWriteTone(0, RE);
-    delay(BEAT * 2);
-    ledcWriteTone(0, MI);
-    delay(BEAT * 2);
-    ledcWriteTone(0, FA);
-    delay(BEAT * 2);
-    ledcWriteTone(0, SO);
-    delay(BEAT * 2);
-    ledcWriteTone(0, RA);
-    delay(BEAT * 2);
-    ledcWriteTone(0, TI);
-    delay(BEAT * 2);
-    ledcWriteTone(0, octDO);
-    delay(BEAT);
-    ledcWriteTone(0, 0); // no sound
-    delay(BEAT);
+  ledcWriteTone(spkrPin, DO);
+  delay(250);
+  ledcWriteTone(spkrPin, RE);
+  delay(250);
+  ledcWriteTone(spkrPin, MI);
+  delay(250);
+  ledcWriteTone(spkrPin, FA);
+  delay(250);
+  ledcWriteTone(spkrPin, SO);
+  delay(250);
+  ledcWriteTone(spkrPin, RA);
+  delay(250);
+  ledcWriteTone(spkrPin, TI);
+  delay(250);
+  ledcWriteTone(spkrPin, octDO);
+  delay(250);
+  ledcWriteTone(spkrPin, 0); // no sound
+  delay(250);
 }
 
 void melodychime(){
-  ledcWriteTone(0, RA);
-    delay(BEAT);
-  ledcWriteTone(0, FA);
-    delay(BEAT);  
-  ledcWriteTone(0, DO);
-    delay(BEAT);
-  ledcWriteTone(0, FA);
-    delay(BEAT);
-  ledcWriteTone(0, SO);
-    delay(BEAT);
-  ledcWriteTone(0, octDO);
-    delay(BEAT * 2);  
-  ledcWriteTone(0, DO);
-    delay(BEAT);  
-  ledcWriteTone(0, SO);
-    delay(BEAT);
-  ledcWriteTone(0, RA);
-    delay(BEAT);  
-  ledcWriteTone(0, SO);
-    delay(BEAT);  
-  ledcWriteTone(0, DO);
-    delay(BEAT);
-  ledcWriteTone(0, FA);
-    delay(BEAT * 3);
-  ledcWriteTone(0, 0);
-    delay(BEAT);
+  ledcWriteTone(spkrPin, RA);
+  delay(BEAT);
+  ledcWriteTone(spkrPin, FA);
+  delay(BEAT);  
+  ledcWriteTone(spkrPin, DO);
+  delay(BEAT);
+  ledcWriteTone(spkrPin, FA);
+  delay(BEAT);
+  ledcWriteTone(spkrPin, SO);
+  delay(BEAT);
+  ledcWriteTone(spkrPin, octDO);
+  delay(BEAT * 2);  
+  ledcWriteTone(spkrPin, DO);
+  delay(BEAT);  
+  ledcWriteTone(spkrPin, SO);
+  delay(BEAT);
+  ledcWriteTone(spkrPin, RA);
+  delay(BEAT);  
+  ledcWriteTone(spkrPin, SO);
+  delay(BEAT);  
+  ledcWriteTone(spkrPin, DO);
+  delay(BEAT);
+  ledcWriteTone(spkrPin, FA);
+  delay(BEAT * 3);
+  ledcWriteTone(spkrPin, 0);
+  delay(BEAT);
 }
 
 void fryer(){
-  ledcWriteTone(0, SO);
-    delay(BEAT);
-  ledcWriteTone(0, FA);
-    delay(BEAT);  
-  ledcWriteTone(0, SO);
-    delay(BEAT);
-  ledcWriteTone(0, 0);
-    delay(BEAT);
-  ledcWriteTone(0, SO);
-    delay(BEAT);
-  ledcWriteTone(0, FA);
-    delay(BEAT);  
-  ledcWriteTone(0, SO);
-    delay(BEAT);  
-  ledcWriteTone(0, 0);
-    delay(BEAT);
-  ledcWriteTone(0, SO);
-    delay(BEAT);  
-  ledcWriteTone(0, FA);
-    delay(BEAT);  
-  ledcWriteTone(0, SO);
-    delay(BEAT);
-  ledcWriteTone(0, 0);
-    delay(BEAT);
-  ledcWriteTone(0, SO);
-    delay(BEAT);  
-  ledcWriteTone(0, FA);
-    delay(BEAT);  
-  ledcWriteTone(0, SO);
-    delay(BEAT);
-  ledcWriteTone(0, 0);
-    delay(BEAT);
+  ledcWriteTone(spkrPin, SO);
+  delay(BEAT);
+  ledcWriteTone(spkrPin, FA);
+  delay(BEAT);  
+  ledcWriteTone(spkrPin, SO);
+  delay(BEAT);
+  ledcWriteTone(spkrPin, 0);
+  delay(BEAT);
+  ledcWriteTone(spkrPin, SO);
+  delay(BEAT);
+  ledcWriteTone(spkrPin, FA);
+  delay(BEAT);  
+  ledcWriteTone(spkrPin, SO);
+  delay(BEAT);  
+  ledcWriteTone(spkrPin, 0);
+  delay(BEAT);
+  ledcWriteTone(spkrPin, SO);
+  delay(BEAT);  
+  ledcWriteTone(spkrPin, FA);
+  delay(BEAT);  
+  ledcWriteTone(spkrPin, SO);
+  delay(BEAT);
+  ledcWriteTone(spkrPin, 0);
+  delay(BEAT);
+  ledcWriteTone(spkrPin, SO);
+  delay(BEAT);  
+  ledcWriteTone(spkrPin, FA);
+  delay(BEAT);  
+  ledcWriteTone(spkrPin, SO);
+  delay(BEAT);
+  ledcWriteTone(spkrPin, 0);
+  delay(BEAT);
 }
 
 void setup() {
-  ledcSetup(0, 12000, 8); //PWM outputs setting.(channel, frequency, duty ratio)
-  ledcAttachPin(spkrPin, 0); //Pin setting(pin num, channel)
+  pinMode(spkrPin, OUTPUT);
+  ledcAttach(spkrPin, 12000, 8); //Pin setting(Pin num, Max frequency, Resolution)
 }
 
 void loop() {
