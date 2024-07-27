@@ -1,5 +1,5 @@
-const int touchPin = 3; //3:ConnectorA 5:ConnectorB
-const int spkrPin = 5; //3:ConnectorA 5:ConnectorB
+const int touchPin = 3; //3:ConnectorA 4:ConnectorB
+const int spkrPin = 4; //3:ConnectorA 4:ConnectorB
 
 #define C4 806.964
 #define D4 718.923

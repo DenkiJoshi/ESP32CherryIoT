@@ -1,4 +1,4 @@
-const int spkrPin = 3; //3:ConnectorA 5:ConnectorB
+const int spkrPin = 3; //3:ConnectorA 4:ConnectorB
 
 #define DO 261.6
 #define _DO 277.18

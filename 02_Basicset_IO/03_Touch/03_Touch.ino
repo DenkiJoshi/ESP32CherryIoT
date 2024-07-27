@@ -1,4 +1,4 @@
-const int touchPin = 3; //3:ConnectorA 5:ConnectorB
+const int touchPin = 3; //3:ConnectorA 4:ConnectorB
 
 void setup() {
   Serial.begin(115200);

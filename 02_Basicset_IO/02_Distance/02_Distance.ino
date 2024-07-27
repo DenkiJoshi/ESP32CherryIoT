@@ -1,5 +1,5 @@
-const int trigPin = 3; //3:ConnectorA 5:ConnectorB
-const int echoPin = 1; //1:ConnectorA 4:ConnectorB
+const int trigPin = 3; //3:ConnectorA 4:ConnectorB
+const int echoPin = 1; //1:ConnectorA 5:ConnectorB
 
 float Duration = 0; //Received Interval Time
 float Distance = 0; //Calculation results from Duration

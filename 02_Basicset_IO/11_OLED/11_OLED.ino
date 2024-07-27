@@ -1,7 +1,7 @@
 #include <SSD1306.h> //ESP8266 and ESP32 OLED driver for SSD1306 displays
 #include <Wire.h>
 
-SSD1306 display(0x3c, 1, 3); //(I2C, SDA, SCL) 1,3:ConnectorA 4,5:ConnectorB
+SSD1306 display(0x3c, 1, 3); //(I2C, SDA, SCL) 1,3:ConnectorA 5,4:ConnectorB
  
 void setup() {
   display.init(); //Initialization

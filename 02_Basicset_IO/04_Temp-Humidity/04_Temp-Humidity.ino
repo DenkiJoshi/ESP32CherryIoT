@@ -5,7 +5,7 @@ DHT20 DHT;
 
 void setup() {
   Serial.begin(115200);
-  Wire.begin(1, 3); //1,3:ConnectorA 4,5:ConnectorB
+  Wire.begin(1, 3); //1,3:ConnectorA 5,4:ConnectorB
 }
 
 void loop() {

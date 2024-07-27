@@ -1,4 +1,4 @@
-const int swPin = 3; //3:ConnectorA 5:ConnectorB
+const int swPin = 3; //3:ConnectorA 4:ConnectorB
 
 bool swState = 0;
 

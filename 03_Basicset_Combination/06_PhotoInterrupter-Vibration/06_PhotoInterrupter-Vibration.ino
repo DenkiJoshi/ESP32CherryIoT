@@ -1,5 +1,5 @@
-const int ruptPin = 3; //3:ConnectorA 5:ConnectorB
-const int vibPin = 5; //3:ConnectorA 5:ConnectorB
+const int ruptPin = 3; //3:ConnectorA 4:ConnectorB
+const int vibPin = 4; //3:ConnectorA 4:ConnectorB
 
 int interruptCount = 0;
 
@@ -13,7 +13,7 @@ void loop() {
   if (digitalRead(ruptPin) == LOW) {
     interruptCount++;
     Serial.println("Interrupt!");
-    delay(100);
+    delay(300);
   }
 
   if (interruptCount >= 5) {

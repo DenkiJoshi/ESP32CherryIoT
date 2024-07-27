@@ -1,5 +1,5 @@
-const int swPin = 3; //3:ConnectorA 5:ConnectorB
-const int motorPin = 5; //3:ConnectorA 5:ConnectorB
+const int swPin = 3; //3:ConnectorA 4:ConnectorB
+const int motorPin = 4; //3:ConnectorA 4:ConnectorB
 
 bool swState;
 
