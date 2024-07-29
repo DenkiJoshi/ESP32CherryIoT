@@ -4,8 +4,7 @@
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 
-#define swPin 32
-bool state = 0;
+const int swPin = 3; //3:ConnectorA 4:ConnectorB
 
 const char* ssid = "xxxxxxxxxxxx";
 const char* password = "xxxxxxxxxx";
@@ -24,9 +23,7 @@ void setup() {
 }
 
 void loop() {
-  state = digitalRead(swPin);
-
-  if (state == HIGH) {
+  if (digitalRead(swPin) == HIGH) {
     Serial.println(openAI_chat("あなたはギャル風の明るい弾けたキャラクターの女の子です。タメ口で話します。そのキャラクター設定で話してください。こんにちは、今日はいい天気ですね。"));
     delay(1000);
   } else {

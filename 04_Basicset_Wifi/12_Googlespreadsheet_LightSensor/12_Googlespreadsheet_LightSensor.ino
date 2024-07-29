@@ -7,12 +7,11 @@
 const char* ssid = "xxxxxx"; //無線ルーターのssidを入力
 const char* password = "xxxxxx"; //無線ルーターのパスワードを入力
 
-#define cdsPin 33 //INPUTA:33 INPUTB:32
-
+const int litsnsrPin = 3; //3:ConnectorA 4:ConnectorB
 
 void setup() {
   Serial.begin(115200);
-  pinMode(cdsPin, INPUT);
+  pinMode(litsnsrPin, INPUT);
 }
 
 
@@ -55,17 +54,14 @@ void sendData(){
   String url = "https://script.google.com/macros/s/xxxxxxxxxxxxxx/exec";  //googlescript web appのurlを入力
 
   //測定値を準備
-  float cds_ad = analogRead(cdsPin);
-
-  float cds_v = cds_ad * 3.3 /4096;
-
-  float lux = 10000 * cds_v / (3.3 - cds_v ) /1000;
+  float litsnsr_ad = analogRead(litsnsrPin); // Read analog data
+  float litsnsr_v = litsnsr_ad * 3.3 / 4096; // Calculation of voltage value
+  float lux = 10000 * litsnsr_v / (3.3 - litsnsr_v) / 1000; // Calculation of lux value
 
   Serial.print(lux);
   Serial.println(" Lux ");
   
-  float sensor_data1= lux; //仮の測定値
-  
+  float sensor_data1= lux;
 
   //wifiに接続
   connectWiFi();

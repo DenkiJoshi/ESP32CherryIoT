@@ -12,8 +12,7 @@ const char* host = "notify-api.line.me";
 const char* token = "xxxxxxxxxxxxxxxxxxxx"; //Your API key
 const char* message = "Hello, I'm ESP32";
 
-int swPin = 32;
-bool state = 0;
+const int swPin = 3; //3:ConnectorA 4:ConnectorB
 
 void setup(){
   Serial.begin(115200);
@@ -23,9 +22,7 @@ void setup(){
 }
 
 void loop(){
-  state = digitalRead(swPin);
-
-  if (state) {
+  if (digitalRead(swPin)) {
     send_line();
   }
 }

@@ -1,14 +1,12 @@
 //https://tom2rd.sakura.ne.jp/wp/2019/09/05/post-9861/
-//Server side. Connect LED to "OUT" connector.
-//Slide switch to 3.3V.
 
 #include<WiFi.h>
-#define ledPin 25
+const int ledPin = 3; //3:ConnectorA 4:ConnectorB
 
 const char *ssid="ESP32-WiFi-1";
 const char *pass="esp32wifi";
 
-const IPAddress ip(192,168,0,5);
+const IPAddress ip(192,168,0,1);
 const IPAddress subnet(255,255,255,0);
 WiFiServer server(80);
 
@@ -44,16 +42,15 @@ void loop()
         Serial.println(value);
         
         if( value == 1 ) {
-          digitalWrite(ledPin, LOW);
-          delay(10);
-        }
-        else {
           digitalWrite(ledPin, HIGH);
           delay(10);
         }
-
-        delay(100);
+        else {
+          digitalWrite(ledPin, LOW);
+          delay(10);
+        }
       }
+      delay(500);
     }
   }
 }

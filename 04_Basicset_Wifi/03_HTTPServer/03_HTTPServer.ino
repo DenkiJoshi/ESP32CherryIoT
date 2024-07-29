@@ -1,9 +1,6 @@
 //https://www.mgo-tec.com/blog-entry-esp-wroom-32-esp32-wifi-smartphone-led-switch.html/4
-//Server side. Connect LED to "OUT" connector.
-//Slide switch to 3.3V.
-
 #include <WiFi.h>
-#define ledPin 25
+const int ledPin = 3; //3:ConnectorA 4:ConnectorB
 
 const char* ssid = "xxxxx";
 const char* password = "xxxxx";
