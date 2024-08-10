@@ -8,8 +8,9 @@ BLEService* pService = NULL;
 BLECharacteristic* pCharacteristic = NULL;
 
 // The UUID of the service and characteristic you want to advertise
-#define SERVICE_UUID "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
-#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
+// https://github.com/NordicSemiconductor/bluetooth-numbers-database/tree/master/v1
+#define SERVICE_UUID        "0000181a-0000-1000-8000-00805f9b34fb" // org.bluetooth.service.environmental_sensing
+#define CHARACTERISTIC_UUID "00002A56-0000-1000-8000-00805f9b34fb" // org.bluetooth.characteristic.digital
 
 void setup() {
   Serial.begin(115200);
