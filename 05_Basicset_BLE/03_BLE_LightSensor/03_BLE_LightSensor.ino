@@ -3,7 +3,7 @@
 #include <BLEUtils.h>
 #include <BLE2902.h>
 
-const int swPin = 3; //3:ConnectorA 4:ConnectorB
+const int litsnsrPin = 3; //3:ConnectorA 4:ConnectorB
 
 BLEServer* pServer = NULL;
 BLEService* pService = NULL;
@@ -12,12 +12,12 @@ BLECharacteristic* pCharacteristic = NULL;
 // The UUID of the service and characteristic you want to advertise
 // https://github.com/NordicSemiconductor/bluetooth-numbers-database/tree/master/v1
 #define SERVICE_UUID        "0000181a-0000-1000-8000-00805f9b34fb" // org.bluetooth.service.environmental_sensing
-#define CHARACTERISTIC_UUID "00002A57-0000-1000-8000-00805f9b34fb" // org.bluetooth.characteristic.digital_output
+#define CHARACTERISTIC_UUID "00002A59-0000-1000-8000-00805f9b34fb" // org.bluetooth.characteristic.analog_output
 
 void setup() {
   Serial.begin(115200);
   Serial.println("Starting BLE work!");
-  pinMode(swPin, INPUT);
+  pinMode(litsnsrPin, INPUT);
 
   // Initialize the BLE device
   BLEDevice::init("My BLE Device");
@@ -54,13 +54,15 @@ void setup() {
 }
 
 void loop() {
-  if (digitalRead(swPin) == HIGH) {
-    Serial.println("Pushed");
-    pCharacteristic->setValue("Pushed");
-  } else {
-    Serial.println("Not Pushed");
-    pCharacteristic->setValue("Not Pushed");
-  }
+  float litsnsr_ad = analogRead(litsnsrPin); // Read analog data
+  float litsnsr_v = litsnsr_ad * 3.3 / 4096; // Calculation of voltage value
+  float lux = 10000 * litsnsr_v / (3.3 - litsnsr_v) / 1000; // Calculation of lux value
+
+  //Look at the serial monitor
+  Serial.println(" Lux : " + String(lux));
+
+  pCharacteristic->setValue(String(lux) + "lux");
+
   pCharacteristic->notify(); // Notify to client
   delay(500);
 }
