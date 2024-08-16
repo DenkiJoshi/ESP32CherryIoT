@@ -14,11 +14,16 @@ CrowTail+ESP32 dongle
 
 *Type this command in powershell
 
+'''
 Invoke-WebRequest 'https://dl.espressif.com/dl/idf-env/idf-env.exe' -OutFile .\idf-env.exe; .\idf-env.exe driver install --espressif
+'''
 
 *Install Arduino IDE
 
 *Add the following URL to your preferences
+
+'''
 https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+'''
 
 *Install ESP32 by espressif from Boards Manager
