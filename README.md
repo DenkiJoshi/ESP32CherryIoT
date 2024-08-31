@@ -34,9 +34,9 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 
 - Insert the ESP32 CherryIoT into your PC.
 
-- Tool
-    Board:ESP32C3
-    Port:comXX (By your PC)
-    Upload Speed:256000
+- 【Arduino IDE】Tools
+  - Board:ESP32C3 Dev Module
+  - Port:COMXX (By your PC)
+  - Upload Speed:256000
 
-- Select the program you want to write and press the Write button.
+- Select the program you want to write and press the Upload button.
