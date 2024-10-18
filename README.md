@@ -37,6 +37,9 @@ https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32
 - [Arduino IDE] Tools
   - Board:ESP32C3 Dev Module
   - Port:COMXX (By your PC)
+  - USB CDC On Boot:"Enabled"
   - Upload Speed:256000
 
 - Select the program you want to write and press the Upload button.
+
+![2024-10-19_08h26_05](https://github.com/user-attachments/assets/8b5b5ec8-ccfd-42dc-8a83-d64339d6de8b)
