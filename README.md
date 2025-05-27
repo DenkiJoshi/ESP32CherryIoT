@@ -24,7 +24,7 @@ Invoke-WebRequest 'https://dl.espressif.com/dl/idf-env/idf-env.exe' -OutFile .\i
 - Add the following URL to your preferences
 
 ```
-https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+https://espressif.github.io/arduino-esp32/package_esp32_index.json
 ```
 
 - Install ESP32 by espressif from Boards Manager
