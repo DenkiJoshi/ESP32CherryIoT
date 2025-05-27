@@ -43,3 +43,8 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 - Select the program you want to write and press the Upload button.
 
 ![2024-10-19_08h26_05](https://github.com/user-attachments/assets/8b5b5ec8-ccfd-42dc-8a83-d64339d6de8b)
+
+
+## Basic Kit
+
+![BasicKit](https://github.com/user-attachments/assets/10f4b977-4d59-4b13-a50c-cb77bddf4d6f)
