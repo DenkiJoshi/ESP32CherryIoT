@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ESP32CherryIoT/static/css/main.f855e6bc.css",
+    "main.js": "/ESP32CherryIoT/static/js/main.64c6c29b.js",
+    "static/js/453.7765f920.chunk.js": "/ESP32CherryIoT/static/js/453.7765f920.chunk.js",
+    "index.html": "/ESP32CherryIoT/index.html",
+    "main.f855e6bc.css.map": "/ESP32CherryIoT/static/css/main.f855e6bc.css.map",
+    "main.64c6c29b.js.map": "/ESP32CherryIoT/static/js/main.64c6c29b.js.map",
+    "453.7765f920.chunk.js.map": "/ESP32CherryIoT/static/js/453.7765f920.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f855e6bc.css",
+    "static/js/main.64c6c29b.js"
+  ]
+}
