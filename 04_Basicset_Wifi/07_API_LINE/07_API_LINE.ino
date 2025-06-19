@@ -3,11 +3,14 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
  
-#define line_ch_id "xxxxx"                         // Channel ID
-#define line_ch_pw "xxxxx"   // Channel secret
+#define line_ch_id "xxxxx"  // Channel ID
+#define line_ch_pw "xxxxx"  // Channel secret
 
 #define SSID "xxxxx"
 #define PASS "xxxxx"
+
+const char* originalImageUrl = "https://www.pakutaso.com/shared/img/thumb/KAZUHIRO171013120_TP_V.jpg";
+const char* previewImageUrl  = "https://www.pakutaso.com/shared/img/thumb/KAZUHIRO171013120_TP_V.jpg";
 
 String get_token(){
     HTTPClient http;  // HTTP request instance
@@ -37,21 +40,25 @@ String get_token(){
     return token;
 }
 
-int message_to_line(String message){
+int message_to_line(String textMessage){
     String token = get_token();  // Get a token
-    int token_len = token.length();  // The length of the token obtained
-    if(token_len != 174){  // Warning when token is too long
-        Serial.println("ERROR: Token Length Error; " + String(token_len));
+    if(token.length() != 174){  // Warning when token is too long
+        Serial.println("ERROR: Token Length Error; " + String(token.length()));
         return 0;
     }
+
     HTTPClient http;  // HTTP request instance
     String url = "https://api.line.me/v2/bot/message/broadcast";
-    Serial.println(url);
     http.begin(url);  // Set the HTTP request destination
     http.addHeader("Content-Type","application/json");
     http.addHeader("Authorization","Bearer " + token);
-    String json = "{\"messages\":[{\"type\":\"text\",\"text\":\"";
-    json += message + "\"}]}";  // Assign message to json for sending
+    
+    String json = "{\"messages\":[";
+    json += "{\"type\":\"text\",\"text\":\"" + textMessage + "\"}";
+    // If you remove the comment, the image will be sent.
+    //json += ",{\"type\":\"image\",\"originalContentUrl\":\"" + String(originalImageUrl) + "\",\"previewImageUrl\":\"" + String(previewImageUrl) + "\"}";
+    json += "]}";
+
     Serial.println(json);
     int httpCode = http.POST(json);  // Sending messages over HTTP
     http.end();  // End HTTP communication
@@ -72,6 +79,6 @@ void setup(){
 }
 
 void loop(){
-    message_to_line("[esp32] Hello!");  // Free Message:200/Month
+    message_to_line("[esp32] Test!");  // Free Message:200/Month
     delay(10*60*1000);  // 10 minutes
 }
