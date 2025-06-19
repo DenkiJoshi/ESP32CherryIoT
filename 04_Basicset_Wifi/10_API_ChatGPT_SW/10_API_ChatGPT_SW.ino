@@ -1,6 +1,5 @@
 //https://github.com/fustyles/Arduino/blob/master/ESP32_openAI.ino
 
-#include <Arduino.h>
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 
