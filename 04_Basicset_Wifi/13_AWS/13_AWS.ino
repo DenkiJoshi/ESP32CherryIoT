@@ -1,101 +1,127 @@
-//https://create-it-myself.com/diy/connect-esp32-and-aws-iot-core/
-#include "secrets.h"
+#include <WiFi.h>
 #include <WiFiClientSecure.h>
-#include <MQTTClient.h>
-#include <ArduinoJson.h>
-#include "WiFi.h"
+#include <PubSubClient.h>
+#include <DHT20.h> // by Rob Tillaart
+#include <Wire.h>
 
-/***** パラメータ(ご自分の環境に合わせてください) *****/
-#define AWS_IOT_PUBLISH_TOPIC   "esp32/pub"
-#define AWS_IOT_SUBSCRIBE_TOPIC "esp32/sub"
+// ======= WiFi Setting =======
+const char* ssid = "xxxxx";
+const char* password = "xxxxx";
 
-/***** メインプログラム *****/
-void setup() {
-  Serial.begin(115200);
-  Serial.println("Hello!");
-  // AWS IoT COre接続機能の初期化処理を実行
-  setup_connection();
-}
- 
-void loop() {
-  // AWS IoT COre接続機能のループ処理を実行
-  loop_connection();
-}
+// ======= AWS IoT Core Setting =======
+const char* awsEndpoint = "xxxxxxxxx-ats.iot.ap-northeast-1.amazonaws.com";
+const int awsPort = 8883;
+const char* thingName = "ESP32CherryIoT_Device001";
+const char* topic = "esp32cherryiot/temperature/ESP32CherryIoT_Device001";
 
-/***** AWS IoT COre接続機能 関連プログラム *****/
-WiFiClientSecure net = WiFiClientSecure();
-MQTTClient client = MQTTClient(256);
+// ======= Certificate of Authenticity =======
+const char* certificate_pem_crt = R"EOF(
+-----BEGIN CERTIFICATE-----
+xxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxx
+-----END CERTIFICATE-----
+)EOF";
 
-unsigned int pubCount = 0;
-unsigned long loopCount = 0;
+const char* private_pem_key = R"EOF(
+-----BEGIN RSA PRIVATE KEY-----
+xxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxx
+-----END RSA PRIVATE KEY-----
+)EOF";
 
-// AWS IoT Core接続機能の初期化処理
-void setup_connection(){
-  // Wi-Fiに接続する
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+const char* amazon_ca = R"EOF(
+-----BEGIN CERTIFICATE-----
+xxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxx
+-----END CERTIFICATE-----
+)EOF";
 
-  // Wi-Fiに接続待ち
-  Serial.println("Connecting to Wi-Fi");
-  while (WiFi.status() != WL_CONNECTED){
+// ======= DHT20 Initialization =======
+DHT20 DHT;
+
+// ======= MQTT =======
+WiFiClientSecure net;
+PubSubClient client(net);
+
+// ======= AWS connection =======
+void connectAWS() {
+  Serial.println("[INFO] Start WiFi connection");
+  WiFi.begin(ssid, password);
+  int wifi_retry = 0;
+  while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
+    wifi_retry++;
+    if (wifi_retry > 40) {
+      Serial.println("\n[ERROR] WiFi connection failed. Reset.");
+      ESP.restart();
+    }
   }
-  Serial.println(".");
+  Serial.println("\n[INFO] WiFi connection successful");
 
-  // AWS IoT Coreに接続
-  net.setCACert(AWS_CERT_CA);
-  net.setCertificate(AWS_CERT_CRT);
-  net.setPrivateKey(AWS_CERT_PRIVATE);
-  client.begin(AWS_IOT_ENDPOINT, 8883, net);
+  Serial.println("[INFO] Setting up certificate...");
+  net.setCACert(amazon_ca);
+  net.setCertificate(certificate_pem_crt);
+  net.setPrivateKey(private_pem_key);
 
-  // サブスクライブしているトピックを受信したときの割り込みハンドラを指定
-  client.onMessage(messageHandler);
+  client.setServer(awsEndpoint, awsPort);
 
-  // AWS IoT Coreに接続待ち
-  Serial.println("Connecting to AWS IOT");
-  while (!client.connect(THINGNAME)) {
-    Serial.print(".");
-    delay(100);
+  Serial.println("[INFO] Start connecting to AWS IoT Core");
+  int mqtt_retry = 0;
+  while (!client.connected()) {
+    if (client.connect(thingName)) {
+      Serial.println("[INFO] MQTT connection successful");
+    } else {
+      Serial.print(".");
+      delay(1000);
+      mqtt_retry++;
+      if (mqtt_retry > 20) {
+        Serial.println("\n[ERROR] MQTT connection failed. Restarting.");
+        ESP.restart();
+      }
+    }
   }
-  Serial.println(".");
-
-  if(!client.connected()){
-    Serial.println("AWS IoT Timeout!");
-    return;
-  }
-
-  // サブスクライブ開始
-  client.subscribe(AWS_IOT_SUBSCRIBE_TOPIC);
-
-  Serial.println("AWS IoT Connected!");
 }
 
-// AWS IoT Core接続機能のループ処理
-void loop_connection(){
-  // 1分間隔でパブリッシュ
-  if(loopCount%(1*60*10)==0){
-    pubCount++;
-    Serial.println("send No."+String(pubCount));
-    publishMessage();
+// ======= Setup =======
+void setup() {
+  Serial.begin(115200);
+  delay(2000); // For stabilizing serial connection
+  Serial.println("\n====== ESP32 startup ======");
+  Wire.begin(1, 3); // SDA=GPIO1, SCL=GPIO3
+  Serial.println("[INFO] I2C initialization complete");
+
+  DHT.begin();
+  Serial.println("[INFO] DHT20 initialization complete");
+
+  connectAWS();
+}
+
+void loop() {
+  if (!client.connected()) {
+    Serial.println("[WARN] Reconnecting MQTT...");
+    connectAWS();
   }
-  loopCount++;
-  client.loop();
-  delay(100);
-}
 
-// パブリッシュする
-void publishMessage(){
-  StaticJsonDocument<200> doc;
-  doc["time"] = millis();
-  doc["sensor_a0"] = analogRead(0);
-  char jsonBuffer[512];
-  serializeJson(doc, jsonBuffer);
+  Serial.println("[INFO] Start reading DHT20 sensor");
+  DHT.read();
+  float temperature = DHT.getTemperature();
+  Serial.print("[INFO] Temperature acquisition completed: ");
+  Serial.print(temperature);
+  Serial.println(" ℃");
 
-  client.publish(AWS_IOT_PUBLISH_TOPIC, jsonBuffer);
-}
+  // Send in JSON format
+  String payload = "{";
+  payload += "\"deviceId\":\"ESP32CherryIoT_Device001\",";
+  payload += "\"temperature\":" + String(temperature, 2);
+  payload += "}";
 
-// サブスクライブしているトピックを受信したときの割り込みハンドラ
-void messageHandler(String &topic, String &payload) {
-  Serial.println("incoming: " + topic + " - " + payload);
+  Serial.print("[INFO] MQTT Send: ");
+  Serial.println(payload);
+  client.publish(topic, payload.c_str());
+
+  delay(10000); // 10sec
 }
