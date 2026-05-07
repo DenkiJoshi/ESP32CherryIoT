@@ -41,7 +41,7 @@ void sendData(){
   WiFiClientSecure sslclient;
 
   const char* server = "script.google.com";
-  String url = "https://script.google.com/macros/s/AKfycbwatdrSt50TSvsoO5S1-7qFu4zQAKA1sp6lAMMN4QQiJ4WWjKFUgz1TY-5Fmi3BNBpd/exec";  //googlescript web appのurlを入力
+  String url = "https://script.google.com/macros/s/AKfycbwatdrSt50TSvsoO5S1-7qFu4zQAKA1sp6lAMMN4QQiJ4WWjKFUgz1TY-5Fmi3BNBpd/exec";  //googlescript web app url
 
   //Prepare measurements
   float sensor_data1= 11.11; //dammy data
@@ -65,7 +65,7 @@ void sendData(){
   url += "&3_cell=";
   url += sensor_data3;
 
-  // Access server
+  //Access server
   Serial.println("Access server...");
   sslclient.setInsecure(); //skip verification
   
@@ -83,7 +83,7 @@ void sendData(){
   sslclient.stop();
 
   Serial.println("Data transmission completed");
-  Serial.println("");//改行
+  Serial.println("");
 
   //Disconnect WiFi
   WiFi.mode(WIFI_OFF);
