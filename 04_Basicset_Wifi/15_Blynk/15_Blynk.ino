@@ -6,7 +6,7 @@
 
 #include <WiFi.h>
 #include <WiFiClient.h>
-#include <BlynkSimpleEsp32.h>
+#include <BlynkSimpleEsp32.h> // Blynk by VolodymyrShymanskyy
 
 char ssid[] = "xxxxx";
 char pass[] = "xxxxx";
