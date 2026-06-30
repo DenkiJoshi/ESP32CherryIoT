@@ -1,5 +1,4 @@
-#include "KT403A_Player.h"  
-// https://github.com/Seeed-Studio/Seeed_Serial_MP3_Player
+#include "KT403A_Player.h"  // Seeed Serial MP3 Player by Seeed Studio
 
 const int mp3RxPin = 3;  // 3: Connector A, 4: Connector B
 const int mp3TxPin = 1;  // 1: Connector A, 5: Connector B
