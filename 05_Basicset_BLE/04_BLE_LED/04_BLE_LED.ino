@@ -4,7 +4,7 @@
 #include <BLE2902.h>
 #include <esp_task_wdt.h>
 
-const int ledPin = 13; // LEDの接続ピン
+const int ledPin = 3; //3:ConnectorA 4:ConnectorB
 
 bool bleOn = false;
 
@@ -12,7 +12,7 @@ BLEServer* pServer = NULL;
 BLEService* pService = NULL;
 BLECharacteristic* pCharacteristic = NULL;
 
-// サービスとキャラクタリスティックのUUID
+// Service and Characteristic UUIDs
 #define SERVICE_UUID        "0000181a-0000-1000-8000-00805f9b34fb" // org.bluetooth.service.environmental_sensing
 #define CHARACTERISTIC_UUID "00002A56-0000-1000-8000-00805f9b34fb" // org.bluetooth.characteristic.digital
 
@@ -33,11 +33,11 @@ void setup() {
   Serial.begin(115200);
   Serial.println("Starting BLE work!");
 
-  // ウォッチドッグタイマーを無効にする
+  // Disable the watchdog timer.
   disableCore0WDT();
 
-  pinMode(ledPin, OUTPUT); // LEDピンを出力に設定
-  digitalWrite(ledPin, LOW); // 初期状態でLEDをOFF
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW);
 
   // Initialize the BLE device
   BLEDevice::init("My BLE Device");
